@@ -1,0 +1,21 @@
+#!/bin/bash
+cartelle=`ls -d */`
+a=0
+for i in $cartelle
+do
+	Riga=1
+	while read -r linea
+	do
+		if [ $primaRiga -eq 1 ]
+		then
+			Riga=0
+			if [ $ciclo -eq 0 ]
+			then
+				echo "${linea};filiale" > merged.csv
+			fi
+		else
+			echo "$linea;$i"  >> merged.csv 
+		fi
+	done < $i/export.csv
+	a=$((a+1))
+done
